@@ -26,19 +26,21 @@ export default function(Vue, options = {}) {
 
         inserted(el, binding, vnode) {
             const title = () => {
-                const attr = el.getAttribute('title');
+                const attr = el.getAttribute('title') || el.getAttribute('data-title');
                 
                 if(attr) {
                     el.setAttribute('data-title', attr);
                     el.setAttribute('data-title-replaced', 1);
                     el.removeAttribute('title');
+
+                    return attr;
                 }
 
                 return option('title');
             };
 
             const option = (key, defaultValue) => {
-                const dataKey = `data-${key}`;
+                const dataKey = `${option.prefix || 'data-tooltip-'}${key}`;
 
                 return (
                     binding.value && binding.value[key]

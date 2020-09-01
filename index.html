@@ -3,7 +3,7 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-        <title>Nav</title>
+        <title>Tooltip</title>
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap-reboot.min.css">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap-grid.min.css">
         <link rel="stylesheet" href="./dist/Tooltip.css">
@@ -13,17 +13,17 @@
             <h1 class="mb-5">tooltip</h1>
 
             <a v-tooltip title="Tooltip" href="#" class="mr-3">Top</a>
-            <a v-tooltip title="Tooltip" href="#" data-placement="bottom" class="mr-3">Bottom</a>
-            <a v-tooltip title="Tooltip" href="#" data-placement="left" class="mr-3">Left</a>
-            <a v-tooltip title="Tooltip" href="#" data-placement="right" class="mr-3">Right</a>
+            <a v-tooltip title="Tooltip" href="#" data-tooltip-placement="bottom" class="mr-3">Bottom</a>
+            <a v-tooltip title="Tooltip" href="#" data-tooltip-placement="left" class="mr-3">Left</a>
+            <a v-tooltip title="Tooltip" href="#" data-tooltip-placement="right" class="mr-3">Right</a>
 
             <h3 class="mt-4">Options</h3>
 
-            <a v-tooltip="{placement: 'bottom'}" href="#" title="Tooltip!" :data-offset="[0, 10]">Hover Me!</a><br>
+            <a v-tooltip="{placement: 'bottom'}" href="#" title="Tooltip!" :data-tooltip-offset="[0, 10]">Hover Me!</a><br>
 
             <h3 class="mt-4">Show by Default</h3>
 
-            <a v-tooltip href="#" title="Tooltip" data-placement="bottom" data-show>Showing by Default</a>
+            <a v-tooltip href="#" title="Tooltip" data-tooltip-placement="bottom" data-tooltip-show>Showing by Default</a>
         </div>
 
         <script src="https://cdn.jsdelivr.net/npm/vue@2.6/dist/vue.js"></script>

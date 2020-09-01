@@ -1,4 +1,4 @@
-# Modal
+# Tooltip
 
 [[toc]]
 
@@ -6,11 +6,11 @@
 
 NPM
 
-    npm i @vue-interface/modal --save
+    npm i @vue-interface/tooltip --save
 
 Yarn
 
-    yard add @vue-interface/modal
+    yard add @vue-interface/tooltip
 
 CDN
 
@@ -19,5 +19,5 @@ CDN
 ## Syntax
 
 ``` html
-<modal>This is an modal.</modal>
+<div v-tooltip title="This is a tooltip"></div>
 ```
