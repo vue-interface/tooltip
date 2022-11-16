@@ -3,7 +3,7 @@
   "version": "0.8.1",
   "description": "A Vue tooltip component.",
   "files": [
-    "index.js",
+    "index.ts",
     "dist",
     "src",
     "tailwindcss"
