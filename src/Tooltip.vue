@@ -7,7 +7,8 @@
     </div>
 </template>
 
-<script>
+<script lang="ts">
+// @ts-ignore
 import Popper from './Popper';
 
 export default {

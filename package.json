@@ -2,21 +2,31 @@
   "name": "@vue-interface/tooltip",
   "version": "0.8.1",
   "description": "A Vue tooltip component.",
-  "main": "index.js",
+  "files": [
+    "index.js",
+    "dist",
+    "src",
+    "tailwindcss"
+  ],
+  "main": "./dist/tooltip.umd.js",
+  "module": "./dist/tooltip.es.js",
+  "browserslist": "last 2 versions, > 0.5%, ie >= 11",
+  "exports": {
+    ".": {
+      "browser": {
+        "default": "./index.ts"
+      }
+    }
+  },
   "scripts": {
-    "watch": "npm run serve",
-    "serve": "vue-cli-service build --target lib --name=Tooltip ./main.js --watch",
-    "build": "vue-cli-service build --target lib --name=Tooltip ./main.js",
-    "lint": "vue-cli-service lint",
-    "fix": "vue-cli-service lint --fix",
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
     "pre-release": "npm run build; git add . -A; git commit -m 'pre-release commit'",
     "release-patch": "npm run pre-release && npm version patch -m \"%s\" && npm run release;",
     "release-minor": "npm run pre-release && npm version minor -m \"%s\" && npm run release;",
     "release-major": "npm run pre-release && npm version major -m \"%s\" && npm run release;",
-    "release": "git add . -A; git commit; git push --tags origin; npm publish;",
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "docs:dev": "./node_modules/.bin/vuepress dev docs",
-    "docs:build": "./node_modules/.bin/vuepress build docs"
+    "release": "git add . -A; git commit; git push --tags origin; npm publish;"
   },
   "repository": {
     "type": "git",
@@ -36,33 +46,25 @@
   },
   "homepage": "https://github.com/vue-interface/tooltip/docs#readme",
   "dependencies": {
-    "@popperjs/core": "^2.4.4",
-    "@vue-interface/btn-activity": "^0.9.5",
-    "@vue-interface/btn-dropdown": "^0.9.13",
-    "@vue-interface/collapse": "^0.9.0",
-    "@vue-interface/triggerable": "^0.9.0",
-    "@vue-interface/utils": "^0.9.16",
-    "@vue-interface/variant": "^1.0.12",
-    "core-js": "^3.6.4",
-    "vue": "^2.6.11"
+    "@popperjs/core": "^2.4.4"
+  },
+  "peerDependencies": {
+    "vue": "^3.0.0"
   },
   "devDependencies": {
-    "@vue-interface/btn": "^0.9.8",
-    "@vue-interface/navigation": "^0.9.12",
-    "@vue-interface/tailwindcss": "^0.2.5",
-    "@vue/cli-plugin-babel": "^4.0",
-    "@vue/cli-plugin-eslint": "^4.0",
-    "@vue/cli-service": "^4.0",
-    "@vuepress/plugin-register-components": "^1.5.0",
+    "@rollup/plugin-babel": "^6.0.0",
+    "@vitejs/plugin-vue": "^3.0.1",
+    "autoprefixer": "^10.4.2",
     "babel-eslint": "^10.1.0",
-    "eslint": "^6.7.2",
-    "eslint-plugin-vue": "^6.2.2",
-    "hex-to-rgba": "^2.0.1",
-    "markdown-it-meta": "0.0.1",
-    "postcss-cli": "^7.1.1",
-    "tailwindcss": "^1.6.0",
-    "vue-template-compiler": "^2.6.11",
-    "vuepress": "^1.5.0",
-    "vuepress-plugin-template-constants": "^0.2.1"
+    "babel-preset-vue": "^2.0.2",
+    "change-case": "^4.1.2",
+    "eslint": "^8.27.0",
+    "eslint-plugin-vue": "^9.7.0",
+    "pascalcase": "^2.0.0",
+    "postcss": "^8.4.6",
+    "tailwindcss": "^3.0.18",
+    "vite": "^3.0.0",
+    "vite-plugin-dts": "^1.7.1",
+    "vue": "^3.2.37"
   }
 }

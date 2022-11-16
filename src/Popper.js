@@ -1,24 +1,9 @@
 import { createPopper } from '@popperjs/core';
-import { prefix } from '@vue-interface/utils';
 
 export default {
 
     props: {
         offset: Array,
-
-        placement: {
-            type: String,
-            default: 'top',
-            validate: value => {
-                return [
-                    'bs-tooltip-auto',
-                    'bs-tooltip-top',
-                    'bs-tooltip-bottom',
-                    'bs-tooltip-left',
-                    'bs-tooltip-right',
-                ].indexOf(prefix(value, 'bs-tooltip')) > -1;
-            }
-        },
 
         popper: Object,
 
@@ -27,12 +12,20 @@ export default {
         target: {
             type: HTMLElement,
             required: true
-        }
+        },
+
+        top: Boolean,
+
+        bottom: Boolean,
+
+        left: Boolean,
+
+        right: Boolean,
     },
     
     data() {
         return {
-            currentShow: this.show,
+            currentShow: false,
             popperInstance: null
         };
     },
@@ -50,22 +43,37 @@ export default {
     },
 
     computed: {
+        placement() {
+            if(this.bottom) {
+                return 'bottom';
+            }
+
+            if(this.left) {
+                return 'left';
+            }
+
+            if(this.right) {
+                return 'right';
+            }
+
+            return 'top';
+        },
         tooltipClasses() {
             return {
                 show: this.currentShow,
-                [prefix(this.placement, 'bs-tooltip')]: true
+                [`bs-tooltip-${this.placement}`]: true
             };
         }
     },
 
     mounted() {
         this.popperInstance = createPopper(this.target, this.$el, Object.assign({
-            placement: this.placement.replace('bs-tooltip-', ''),
+            placement: this.placement,
             modifiers: [
                 {
                     name: 'offset',
                     options: {
-                        offset: this.offset
+                        offset: [0, 6]
                     },
                 },
                 {
@@ -76,10 +84,14 @@ export default {
                 },
             ],
         }, this.popper));
+
+        this.$nextTick(() => {
+            this.currentShow = this.show;
+        });
     },
 
     beforeDestroy() {
         this.popperInstance && this.popperInstance.destroy();
-    },
+    }
 
 };

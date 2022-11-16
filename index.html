@@ -4,47 +4,39 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <title>Tooltip</title>
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap-reboot.min.css">
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap-grid.min.css">
-        <link rel="stylesheet" href="./dist/Tooltip.css">
     </head>
     <body>
-        <div id="app" class="container">
-            <h1 class="mb-5">tooltip</h1>
+        <div id="app" class="container mx-auto mb-6">
+            <h1 class="mb-5 text-4xl">
+                tooltip
+            </h1>
 
-            <a v-tooltip title="Tooltip" href="#" class="mr-3">Top</a>
-            <a v-tooltip title="Tooltip" href="#" data-tooltip-placement="bottom" class="mr-3">Bottom</a>
-            <a v-tooltip title="Tooltip" href="#" data-tooltip-placement="left" class="mr-3">Left</a>
-            <a v-tooltip title="Tooltip" href="#" data-tooltip-placement="right" class="mr-3">Right</a>
-
-            <h3 class="mt-4">Options</h3>
-
-            <a v-tooltip="{placement: 'bottom'}" href="#" title="Tooltip!" :data-tooltip-offset="[0, 10]">Hover Me!</a><br>
-
-            <h3 class="mt-4">Show by Default</h3>
-
-            <a v-tooltip href="#" title="Tooltip" data-tooltip-placement="bottom" data-tooltip-show>Showing by Default</a>
+            <h3 class="mb-2 text-2xl">Directive</h3>
+            
+            <div class="flex gap-2">
+                <button v-tooltip title="Top" class="p-2 rounded bg-slate-800 text-white">
+                    Top
+                </button>
+                <button v-tooltip.bottom title="Bottom" class="p-2 rounded bg-slate-800 text-white">
+                    Bottom
+                </button>
+                <button v-tooltip.left title="Left" class="p-2 rounded bg-slate-800 text-white">
+                    Left
+                </button>
+                <button v-tooltip.right title="Right" class="p-2 rounded bg-slate-800 text-white">
+                    Right
+                </button>
+            </div>
         </div>
 
-        <script src="https://cdn.jsdelivr.net/npm/vue@2.6/dist/vue.js"></script>
-        <script type="text/javascript" src="./dist/Tooltip.umd.js"></script>
-        <script type="text/javascript">
-            const {
-                Tooltip,
-                TooltipPlugin
-            } = window.Tooltip;
-            
-            Vue.use(TooltipPlugin);
+        <script type="module">
+            import './index.css';
+            import { createApp } from 'vue/dist/vue.esm-bundler.js';
+            import TooltipPlugin from './src/TooltipPlugin.ts'
 
-            const vue = new Vue({
-                el: '#app',
-                data: () => ({
-                    mounted: false
-                }),
-                mounted() {
-                    this.mounted = true;
-                }
-            });
+            createApp()
+                .use(TooltipPlugin)
+                .mount('#app');
         </script>
     </body>
 </html>

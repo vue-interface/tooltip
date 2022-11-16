@@ -1,6 +1,5 @@
 const plugin = require('tailwindcss/plugin');
 const { colors } = require('tailwindcss/defaultTheme');
-const { divide, flatten, resetText, quote } = require('@vue-interface/tailwindcss/utils');
 
 module.exports = plugin(function({ addComponents, theme }) {
     const tooltipTop = {
@@ -13,8 +12,8 @@ module.exports = plugin(function({ addComponents, theme }) {
         },
             
         '.bs-tooltip-top .tooltip-arrow::before': {
-            top: 0,
-            borderWidth: `${theme('tooltip.arrow.height')} ${divide(theme('tooltip.arrow.width'), 2)} 0`,
+            top: 'calc(100% - 2px)',
+            borderWidth: `${theme('tooltip.arrow.height')} calc(${theme('tooltip.arrow.width')} / 2) 0`,
             borderTopColor: theme('tooltip.arrow.color'),
         }
     };
@@ -29,8 +28,8 @@ module.exports = plugin(function({ addComponents, theme }) {
         },
         
         '.bs-tooltip-bottom .tooltip-arrow::before': {
-            bottom: 0,
-            borderWidth: `0 ${divide(theme('tooltip.arrow.width'), 2)} ${theme('tooltip.arrow.height')}`,
+            bottom: 'calc(100% - 2px)',
+            borderWidth: `0 calc(${theme('tooltip.arrow.width')} / 2) ${theme('tooltip.arrow.height')}`,
             borderBottomColor: theme('tooltip.arrow.color'),
         },
     };
@@ -47,8 +46,8 @@ module.exports = plugin(function({ addComponents, theme }) {
         },
         
         '.bs-tooltip-left .tooltip-arrow::before': {
-            left: 0,
-            borderWidth: `${divide(theme('tooltip.arrow.width'), 2)} 0 ${divide(theme('tooltip.arrow.width'), 2)} ${theme('tooltip.arrow.height')}`,
+            left: 'calc(100% - 2px)',
+            borderWidth: `calc(${theme('tooltip.arrow.width')} / 2) 0 calc(${theme('tooltip.arrow.width')} / 2) ${theme('tooltip.arrow.height')}`,
             borderLeftColor: theme('tooltip.arrow.color')
         }
     };
@@ -65,17 +64,15 @@ module.exports = plugin(function({ addComponents, theme }) {
         },
         
         '.bs-tooltip-right .tooltip-arrow::before': {
-            right: 0,
-            borderWidth: `${divide(theme('tooltip.arrow.width'), 2)} ${theme('tooltip.arrow.height')} ${divide(theme('tooltip.arrow.width'), 2)} 0`,
+            right: 'calc(100% - 2px)',
+            borderWidth: `calc(${theme('tooltip.arrow.width')} / 2) ${theme('tooltip.arrow.height')} calc(${theme('tooltip.arrow.width')} / 2) 0`,
             borderRightColor: theme('tooltip.arrow.color'),
         }
     };
 
     const tooltip = {
-        ':root': flatten(theme('tooltip'), '--tooltip-'),
-        
         // Base class
-        '.tooltip': resetText({
+        '.tooltip': {
             position: 'absolute',
             zIndex: theme('tooltip.zIndex'),
             display: 'block',
@@ -86,7 +83,8 @@ module.exports = plugin(function({ addComponents, theme }) {
             // Allow breaking very long words so they don't overflow the tooltip's bounds
             wordWrap: 'break-word',
             opacity: 0,
-        }, theme),
+            transition: theme('tooltip.transition')
+        },
         
         '.tooltip.show': { opacity: theme('tooltip.opacity') },
         
@@ -99,7 +97,7 @@ module.exports = plugin(function({ addComponents, theme }) {
         
         '.tooltip .tooltip-arrow::before': {
             position: 'absolute',
-            content: quote(""),
+            content: '""',
             borderColor: 'transparent',
             borderStyle: 'solid',
         },
@@ -141,23 +139,23 @@ module.exports = plugin(function({ addComponents, theme }) {
     theme: {
         tooltip: theme => {
             return {
-                fontSize: theme('interface.fontSize.sm', '.875rem'),
+                fontSize: '.875rem',
                 maxWidth: '200px',
                 color: theme('colors.white', colors.white),
                 backgroundColor: theme('colors.black', colors.black),
-                borderRadius: theme('interface.borderRadius.base', '.25rem'),
+                borderRadius: '.25rem',
                 opacity: .9,
-                paddingY: divide(theme('interface.spacer', '1rem'), 4),
-                paddingX: divide(theme('interface.spacer', '1rem'), 2),
+                paddingY: '.25rem',
+                paddingX: '.5rem',
                 margin: 0,
                 zIndex: theme('interface.zIndex.tooltip', 1070),
+                transition: 'opacity .15s ease-out',
                 
                 arrow: {
                     width: '.8rem',
                     height: '.4rem',
                     color: theme('colors.black', colors.black),
-                },
-                
+                }                
             };
         }
     }
