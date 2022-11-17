@@ -12,7 +12,7 @@ module.exports = plugin(function({ addComponents, theme }) {
         },
             
         '.bs-tooltip-top .tooltip-arrow::before': {
-            top: 'calc(100% - 2px)',
+            bottom: 0,
             borderWidth: `${theme('tooltip.arrow.height')} calc(${theme('tooltip.arrow.width')} / 2) 0`,
             borderTopColor: theme('tooltip.arrow.color'),
         }
@@ -28,7 +28,7 @@ module.exports = plugin(function({ addComponents, theme }) {
         },
         
         '.bs-tooltip-bottom .tooltip-arrow::before': {
-            bottom: 'calc(100% - 2px)',
+            top: 0,
             borderWidth: `0 calc(${theme('tooltip.arrow.width')} / 2) ${theme('tooltip.arrow.height')}`,
             borderBottomColor: theme('tooltip.arrow.color'),
         },
@@ -46,7 +46,7 @@ module.exports = plugin(function({ addComponents, theme }) {
         },
         
         '.bs-tooltip-left .tooltip-arrow::before': {
-            left: 'calc(100% - 2px)',
+            right: 0,
             borderWidth: `calc(${theme('tooltip.arrow.width')} / 2) 0 calc(${theme('tooltip.arrow.width')} / 2) ${theme('tooltip.arrow.height')}`,
             borderLeftColor: theme('tooltip.arrow.color')
         }
@@ -64,7 +64,7 @@ module.exports = plugin(function({ addComponents, theme }) {
         },
         
         '.bs-tooltip-right .tooltip-arrow::before': {
-            right: 'calc(100% - 2px)',
+            left: 0,
             borderWidth: `calc(${theme('tooltip.arrow.width')} / 2) ${theme('tooltip.arrow.height')} calc(${theme('tooltip.arrow.width')} / 2) 0`,
             borderRightColor: theme('tooltip.arrow.color'),
         }

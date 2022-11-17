@@ -13,10 +13,12 @@
   "browserslist": "last 2 versions, > 0.5%, ie >= 11",
   "exports": {
     ".": {
-      "browser": {
-        "default": "./index.ts"
-      }
-    }
+      "import": "./dist/tooltip.es.js",
+      "require": "./dist/tooltip.umd.js",
+      "types": "./index.ts"
+    },
+    "./tailwindcss": "./tailwindcss/index.js",
+    "./tailwindcss/safelist": "./tailwindcss/safelist.js"
   },
   "scripts": {
     "dev": "vite",

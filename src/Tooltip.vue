@@ -2,7 +2,7 @@
     <div class="tooltip" :class="tooltipClasses" role="tooltip">
         <div ref="arrow" class="tooltip-arrow" />
         <div ref="inner" class="tooltip-inner">
-            <slot />
+            <slot>{{ title }}</slot>
         </div>
     </div>
 </template>

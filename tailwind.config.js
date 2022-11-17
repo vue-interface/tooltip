@@ -8,5 +8,8 @@ module.exports = {
     },
     plugins: [
         require('./tailwindcss')
+    ],
+    safelist: [
+        ...require('./tailwindcss/safelist')()
     ]
 };

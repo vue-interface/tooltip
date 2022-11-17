@@ -14,6 +14,10 @@ export default {
             required: true
         },
 
+        title: String,
+
+        placement: String,
+
         top: Boolean,
 
         bottom: Boolean,
@@ -43,7 +47,11 @@ export default {
     },
 
     computed: {
-        placement() {
+        computedPlacement() {
+            if(this.placement) {
+                return this.placement;
+            }
+
             if(this.bottom) {
                 return 'bottom';
             }
@@ -61,14 +69,14 @@ export default {
         tooltipClasses() {
             return {
                 show: this.currentShow,
-                [`bs-tooltip-${this.placement}`]: true
+                [`bs-tooltip-${this.computedPlacement}`]: true
             };
         }
     },
 
     mounted() {
         this.popperInstance = createPopper(this.target, this.$el, Object.assign({
-            placement: this.placement,
+            placement: this.computedPlacement,
             modifiers: [
                 {
                     name: 'offset',

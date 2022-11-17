@@ -11,31 +11,87 @@
                 tooltip
             </h1>
 
-            <h3 class="mb-2 text-2xl">Directive</h3>
+            <!-- <h3 class="mb-2 text-2xl">Directive</h3>
             
             <div class="flex gap-2">
-                <button v-tooltip title="Top" class="p-2 rounded bg-slate-800 text-white">
+                <a href="#" v-tooltip title="Top" class="p-2 rounded bg-slate-800 text-white outline-none focus:ring">
                     Top
-                </button>
-                <button v-tooltip.bottom title="Bottom" class="p-2 rounded bg-slate-800 text-white">
+                </a>
+                <a href="#" v-tooltip="{placement: 'bottom'}" title="Bottom" class="p-2 rounded bg-slate-800 text-white outline-none focus:ring">
                     Bottom
-                </button>
-                <button v-tooltip.left title="Left" class="p-2 rounded bg-slate-800 text-white">
+                </a>
+                <a href="#" v-tooltip.left title="Left" class="p-2 rounded bg-slate-800 text-white outline-none focus:ring">
                     Left
-                </button>
-                <button v-tooltip.right title="Right" class="p-2 rounded bg-slate-800 text-white">
+                </a>
+                <a href="#" v-tooltip.right title="Right" class="p-2 rounded bg-slate-800 text-white outline-none focus:ring">
                     Right
-                </button>
+                </a>
+            </div> -->
+
+            <h3 class="mt-4 mb-2 text-2xl">From Attributes</h3>
+            
+            <div class="flex gap-2">
+                <a href="#" data-tooltip="Top" data-tooltip-placement="top" class="p-2 rounded bg-slate-800 text-white outline-none focus:ring">
+                    Top
+                </a>
+                <a href="#" title="Bottom" data-tooltip-placement="bottom" class="p-2 rounded bg-slate-800 text-white outline-none focus:ring">
+                    Bottom
+                </a>
+                <a href="#" data-tooltip="Left" data-tooltip-placement="left" class="p-2 rounded bg-slate-800 text-white outline-none focus:ring">
+                    Left
+                </a>
+                <a href="#" title="Right" data-tooltip-placement="right" class="p-2 rounded bg-slate-800 text-white outline-none focus:ring">
+                    Right
+                </a>
             </div>
+            
+            <!-- <h3 class="mt-4 mb-2 text-2xl">Automatically inside child components...</h3>
+
+            <via-plugin /> -->
         </div>
 
         <script type="module">
             import './index.css';
-            import { createApp } from 'vue/dist/vue.esm-bundler.js';
+            import { createApp, h } from 'vue/dist/vue.esm-bundler.js';
             import TooltipPlugin from './src/TooltipPlugin.ts'
 
             createApp()
                 .use(TooltipPlugin)
+                .component('via-plugin', {
+                    render() {
+                        return h('div', {
+                            class: 'flex gap-2'
+                        }, [
+                            h('a', {
+                                href: '#',
+                                title: 'Top',
+                                'data-tooltip-placement': 'top',
+                                class: 'p-2 rounded bg-slate-800 text-white outline-none focus:ring'
+                            }, 'Top'),
+
+                            h('a', {
+                                href: '#',
+                                title: 'Bottom',
+                                'data-tooltip-placement': 'bottom',
+                                class: 'p-2 rounded bg-slate-800 text-white outline-none focus:ring'
+                            }, 'Bottom'),
+
+                            h('a', {
+                                href: '#',
+                                title: 'Left',
+                                'data-tooltip-placement': 'left',
+                                class: 'p-2 rounded bg-slate-800 text-white outline-none focus:ring'
+                            }, 'Left'),
+
+                            h('a', {
+                                href: '#',
+                                title: 'Right',
+                                'data-tooltip-placement': 'right',
+                                class: 'p-2 rounded bg-slate-800 text-white outline-none focus:ring'
+                            }, 'Right')
+                        ])
+                    }
+                })
                 .mount('#app');
         </script>
     </body>
