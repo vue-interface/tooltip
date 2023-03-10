@@ -1,0 +1,60 @@
+
+> @vue-interface/tooltip@1.0.0-beta.2 build /Users/mitchellsolomon/Code/work/@vue-interface/vue-interface/packages/tooltip
+> vite build
+
+vite v3.2.5 building for production...
+transforming...
+✓ 7 modules transformed.
+rendering chunks...
+dist/style.css     0.03 KiB / gzip: 0.05 KiB
+dist/tooltip.mjs   4.23 KiB / gzip: 1.74 KiB
+dist/tooltip.mjs.map 11.66 KiB
+dist/tooltip.umd.js   3.32 KiB / gzip: 1.62 KiB
+dist/tooltip.umd.js.map 11.11 KiB
+
+[vite:dts] Start generate declaration files...
+[96msrc/Popper.ts[0m:[93m67[0m:[93m9[0m - [91merror[0m[90m TS2322: [0mType 'Instance' is not assignable to type 'null'.
+
+[7m67[0m         this.popperInstance = createPopper(this.target, this.$el, Object.assign({
+[7m  [0m [91m        ~~~~~~~~~~~~~~~~~~~[0m
+[96msrc/Popper.ts[0m:[93m67[0m:[93m67[0m - [91merror[0m[90m TS2345: [0mArgument of type '{ placement: string; modifiers: ({ name: string; options: { offset: number[]; element?: undefined; }; } | { name: string; options: { element: unknown; offset?: undefined; }; })[]; } & Record<string, any>' is not assignable to parameter of type 'Partial<OptionsGeneric<{ name: string; options: { offset: number[]; element?: undefined; }; } | { name: string; options: { element: unknown; offset?: undefined; }; }>> | undefined'.
+  Type '{ placement: string; modifiers: ({ name: string; options: { offset: number[]; element?: undefined; }; } | { name: string; options: { element: unknown; offset?: undefined; }; })[]; } & Record<string, any>' is not assignable to type 'Partial<OptionsGeneric<{ name: string; options: { offset: number[]; element?: undefined; }; } | { name: string; options: { element: unknown; offset?: undefined; }; }>>'.
+    Types of property 'placement' are incompatible.
+      Type 'string' is not assignable to type 'Placement | undefined'.
+
+[7m 67[0m         this.popperInstance = createPopper(this.target, this.$el, Object.assign({
+[7m   [0m [91m                                                                  ~~~~~~~~~~~~~~~[0m
+[7m 68[0m             placement: this.computedPlacement,
+[7m   [0m [91m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+[7m...[0m 
+[7m 82[0m             ],
+[7m   [0m [91m~~~~~~~~~~~~~~[0m
+[7m 83[0m         }, this.popper));
+[7m   [0m [91m~~~~~~~~~~~~~~~~~~~~~~~[0m
+[96msrc/Popper.ts[0m:[93m91[0m:[93m52[0m - [91merror[0m[90m TS2339: [0mProperty 'destroy' does not exist on type 'never'.
+
+[7m91[0m         this.popperInstance && this.popperInstance.destroy();
+[7m  [0m [91m                                                   ~~~~~~~[0m
+[96msrc/TooltipPlugin.ts[0m:[93m18[0m:[93m28[0m - [91merror[0m[90m TS2339: [0mProperty 'prefix' does not exist on type '{}'.
+
+[7m18[0m     const prefix = options.prefix.replace(/[-]+$/, '');
+[7m  [0m [91m                           ~~~~~~[0m
+[96msrc/TooltipPlugin.ts[0m:[93m101[0m:[93m17[0m - [91merror[0m[90m TS2339: [0mProperty 'triggers' does not exist on type '{}'.
+
+[7m101[0m         options.triggers.open.map(trigger => addEventListener(trigger, open));
+[7m   [0m [91m                ~~~~~~~~[0m
+[96msrc/TooltipPlugin.ts[0m:[93m101[0m:[93m35[0m - [91merror[0m[90m TS7006: [0mParameter 'trigger' implicitly has an 'any' type.
+
+[7m101[0m         options.triggers.open.map(trigger => addEventListener(trigger, open));
+[7m   [0m [91m                                  ~~~~~~~[0m
+[96msrc/TooltipPlugin.ts[0m:[93m102[0m:[93m17[0m - [91merror[0m[90m TS2339: [0mProperty 'triggers' does not exist on type '{}'.
+
+[7m102[0m         options.triggers.close.map(trigger => addEventListener(trigger, close));
+[7m   [0m [91m                ~~~~~~~~[0m
+[96msrc/TooltipPlugin.ts[0m:[93m102[0m:[93m36[0m - [91merror[0m[90m TS7006: [0mParameter 'trigger' implicitly has an 'any' type.
+
+[7m102[0m         options.triggers.close.map(trigger => addEventListener(trigger, close));
+[7m   [0m [91m                                   ~~~~~~~[0m
+
+[vite:dts] Declaration files built in 905ms.
+

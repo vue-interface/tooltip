@@ -1,24 +1,29 @@
-import type { App, VNode } from 'vue';
+import type { App } from 'vue';
 import { h, render } from 'vue';
 import Tooltip from './Tooltip.vue';
 
-export default function(app: App, options = {
-    delay: undefined,
-    prefix: 'data-tooltip',
-    triggers: {
-        open: ['mouseover:750', 'focus'],
-        close: ['mouseout:1000', 'blur'],
-    }
-}) {
+export default function(app: App, options = {}) {
+
+    const defaultOptions = {
+        delay: undefined,
+        prefix: 'data-tooltip',
+        triggers: {
+            open: ['mouseover:750', 'focus'],
+            close: ['mouseout:1000', 'blur'],
+        }
+    };
+
+    options = Object.assign(defaultOptions, options);
+
     const prefix = options.prefix.replace(/[-]+$/, '');
     const prefixRegExp = new RegExp(`^${prefix}\-`);
 
     function getAttributes(el: Element): Record<string,any> {
         return Array.from(el.attributes)
-          .map(a => [a.name, a.value])
-          .filter(([key]) => key === 'title' || key.match(prefixRegExp))
-          .map(([key, value]) => [key.replace(new RegExp(prefixRegExp), ''), value])
-          .reduce((carry, attr) => Object.assign(carry, {[attr[0]]: attr[1]}), {})
+            .map(a => [a.name, a.value])
+            .filter(([key]) => key === 'title' || key.match(prefixRegExp))
+            .map(([key, value]) => [key.replace(new RegExp(prefixRegExp), ''), value])
+            .reduce((carry, attr) => Object.assign(carry, { [attr[0]]: attr[1] }), {});
     }
 
     function createTooltip(target: Element, props: Record<string,any> = {}): Function {
@@ -90,7 +95,7 @@ export default function(app: App, options = {
         function addEventListener(trigger: string, fn: Function) {
             const [ event, delayString ] = trigger.split(':');
 
-            target.addEventListener(event, () => fn(Number(delayString || 0)))
+            target.addEventListener(event, () => fn(Number(delayString || 0)));
         }
         
         options.triggers.open.map(trigger => addEventListener(trigger, open));
@@ -118,12 +123,12 @@ export default function(app: App, options = {
                         return NodeFilter.FILTER_REJECT;
                     }
                     
-                    return NodeFilter.FILTER_ACCEPT
+                    return NodeFilter.FILTER_ACCEPT;
                 }
             );
 
             // Step through and alert all child nodes
-            while (walker.nextNode()) {
+            while(walker.nextNode()) {
                 if(walker.currentNode instanceof Element) {
                     init(<Element> walker.currentNode);
                 }

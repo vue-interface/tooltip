@@ -56,7 +56,12 @@
             import TooltipPlugin from './src/TooltipPlugin.ts'
 
             createApp()
-                .use(TooltipPlugin)
+                .use(TooltipPlugin, {
+                    triggers: {
+                        open: ['mouseover:0', 'focus'],
+                        close: ['mouseout:0', 'blur'],
+                    }
+                })
                 .component('via-plugin', {
                     render() {
                         return h('div', {

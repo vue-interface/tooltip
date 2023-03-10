@@ -1,5 +1,5 @@
 {
-    "compilerOptions": {
+  "compilerOptions": {
       "target": "ESNext",
       "module": "ESNext",
       "moduleResolution": "node",
@@ -13,7 +13,7 @@
       "paths": {},
       "allowSyntheticDefaultImports": true,
       "skipLibCheck": true,
-      "types": ["vite/client", "vue/ref-macros"]
-    },
-    "include": ["src"]
+      "noImplicitThis": false,
+      "types": ["vite/client", "vue", "vue/ref-macros"]
+  }
 }

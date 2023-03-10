@@ -1,6 +1,7 @@
 import { createPopper } from '@popperjs/core';
+import { defineComponent } from 'vue';
 
-export default {
+export default defineComponent({
 
     props: {
         offset: Array,
@@ -32,18 +33,6 @@ export default {
             currentShow: false,
             popperInstance: null
         };
-    },
-
-    methods: {
-
-        open() {
-            this.currentShow = true;
-        },
-
-        close() {
-            this.currentShow = false;
-        }
-
     },
 
     computed: {
@@ -98,8 +87,20 @@ export default {
         });
     },
 
-    beforeDestroy() {
+    beforeUnmount() {
         this.popperInstance && this.popperInstance.destroy();
+    },
+
+    methods: {
+
+        open() {
+            this.currentShow = true;
+        },
+
+        close() {
+            this.currentShow = false;
+        }
+
     }
 
-};
+});
