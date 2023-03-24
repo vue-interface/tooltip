@@ -47,21 +47,26 @@
             
             <h3 class="mt-4 mb-2 text-2xl">Automatically inside child components...</h3>
 
-            <via-plugin />
+            <via-plugin v-if="visible" />
         </div>
 
         <script type="module">
             import './index.css';
-            import { createApp, h } from 'vue/dist/vue.esm-bundler.js';
+            import { createApp, h, ref } from 'vue/dist/vue.esm-bundler.js';
             import TooltipPlugin from './src/TooltipPlugin.ts'
 
-            createApp()
-                .use(TooltipPlugin, {
-                    triggers: {
-                        open: ['mouseover:0', 'focus'],
-                        close: ['mouseout:0', 'blur'],
+            let visible = ref(true)
+
+            const app = createApp({
+                setup() {
+                    return {
+                        visible
                     }
-                })
+                },
+            });
+
+            app
+                .use(TooltipPlugin)
                 .component('via-plugin', {
                     render() {
                         return h('div', {
@@ -70,6 +75,8 @@
                             h('a', {
                                 href: '#',
                                 title: 'Top',
+                                'data-tooltip-trigger-open': 'mouseover:500',
+                                'data-tooltip-trigger-close': 'mouseout:500,blur',
                                 'data-tooltip-placement': 'top',
                                 class: 'p-2 rounded bg-slate-800 text-white outline-none focus:ring'
                             }, 'Top'),
@@ -93,7 +100,17 @@
                                 title: 'Right',
                                 'data-tooltip-placement': 'right',
                                 class: 'p-2 rounded bg-slate-800 text-white outline-none focus:ring'
-                            }, 'Right')
+                            }, 'Right'),
+
+                            h('a', {
+                                href: '#',
+                                title: 'Right',
+                                'data-tooltip-placement': 'right',
+                                class: 'p-2 rounded bg-slate-800 text-white outline-none focus:ring',
+                                onClick() {
+                                    visible.value = false;
+                                }
+                            }, 'Trigger Unmount')
                         ])
                     }
                 })

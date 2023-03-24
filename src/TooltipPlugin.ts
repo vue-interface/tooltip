@@ -2,18 +2,26 @@ import type { App } from 'vue';
 import { h, render } from 'vue';
 import Tooltip from './Tooltip.vue';
 
-export default function(app: App, options = {}) {
+type TooltipPluginOptions = {
+    delay?: number,
+    prefix: string,
+    triggers: {
+        open: string[],
+        close: string[],
+    }
+}
 
-    const defaultOptions = {
+export default function (app: App, opts: Partial<TooltipPluginOptions> = {}) {
+    const tooltips: Map<string,Function> = new Map;
+
+    const options: TooltipPluginOptions = Object.assign({
         delay: undefined,
         prefix: 'data-tooltip',
         triggers: {
-            open: ['mouseover:750', 'focus'],
-            close: ['mouseout:1000', 'blur'],
+            open: ['mouseover:350'],
+            close: ['mouseout:100'],
         }
-    };
-
-    options = Object.assign(defaultOptions, options);
+    }, opts);
 
     const prefix = options.prefix.replace(/[-]+$/, '');
     const prefixRegExp = new RegExp(`^${prefix}\-`);
@@ -26,9 +34,9 @@ export default function(app: App, options = {}) {
             .reduce((carry, attr) => Object.assign(carry, { [attr[0]]: attr[1] }), {});
     }
 
-    function createTooltip(target: Element, props: Record<string,any> = {}): Function {
+    function createTooltip(target: Element, props: Record<string,any> = {}, hash: string): Function {
         const container = document.createElement('template');
-              
+        
         const vnode = h(Tooltip, Object.assign({
             target,
             show: true
@@ -41,6 +49,8 @@ export default function(app: App, options = {}) {
         document.body.append(el);
     
         return () => {
+            tooltips.delete(hash);
+
             // @ts-ignore
             vnode.component?.ctx.close();
     
@@ -76,7 +86,13 @@ export default function(app: App, options = {}) {
 
             if(!tooltip) {
                 timer = setTimeout(() => {
-                    tooltip = createTooltip(target, properties);
+                    // Do a check before creating the tooltip to ensure the dom
+                    // element still exists. Its possible for the element to
+                    // be removed after the timeout delay runs.
+                    if(document.contains(target)) {
+                        tooltip = createTooltip(target, properties, hash);
+                        tooltips.set(hash, tooltip);
+                    }
                 }, delay);
             }
         }
@@ -97,9 +113,9 @@ export default function(app: App, options = {}) {
 
             target.addEventListener(event, () => fn(Number(delayString || 0)));
         }
-        
-        options.triggers.open.map(trigger => addEventListener(trigger, open));
-        options.triggers.close.map(trigger => addEventListener(trigger, close));
+
+        (target.getAttribute(`${prefix}-trigger-open`)?.split(',') || options.triggers.open).map(trigger => addEventListener(trigger, open));
+        (target.getAttribute(`${prefix}-trigger-close`)?.split(',') || options.triggers.close).map(trigger => addEventListener(trigger, close));
     }
   
     app.mixin({
@@ -133,10 +149,36 @@ export default function(app: App, options = {}) {
                     init(<Element> walker.currentNode);
                 }
             }
+
+            const observer = new MutationObserver((changes) => {
+                for(const { removedNodes } of changes) {
+                    for(const node of removedNodes) {
+                        for(const el of (node as Element).querySelectorAll(`[${prefix}-id]`)) {
+                            const tooltip = tooltips.get(
+                                el.getAttribute(`${prefix}-id`) as string
+                            );
+
+                            tooltip && tooltip();
+                        }
+                    } 
+                }
+            });
+
+            observer.observe(el, { childList: true });
         }
     });
 
-    app.directive('tooltip', (target, binding) => init(
-        target, Object.assign({}, binding.modifiers, binding.value)
-    ));
+    app.directive('tooltip', {
+        created(target, binding) {
+            init(target, Object.assign({}, binding.modifiers, binding.value));
+        },
+        beforeUnmount(target) {
+            const id = target.getAttribute(`${prefix}-id`);
+            const tooltip = tooltips.get(id);
+
+            console.log('beforeUnmount');
+
+            tooltip && tooltip();
+        }
+    });
 }

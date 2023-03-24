@@ -8,11 +8,11 @@ module.exports = plugin(function({ addComponents, theme }) {
         },
 
         '.bs-tooltip-top .tooltip-arrow': {
-            bottom: 0,
+            bottom: '1px',
         },
             
         '.bs-tooltip-top .tooltip-arrow::before': {
-            bottom: 0,
+            bottom: '1px',
             borderWidth: `${theme('tooltip.arrow.height')} calc(${theme('tooltip.arrow.width')} / 2) 0`,
             borderTopColor: theme('tooltip.arrow.color'),
         }
@@ -24,11 +24,11 @@ module.exports = plugin(function({ addComponents, theme }) {
         },
         
         '.bs-tooltip-bottom .tooltip-arrow': {
-            top: 0
+            top: '1px'
         },
         
         '.bs-tooltip-bottom .tooltip-arrow::before': {
-            top: 0,
+            top: '1px',
             borderWidth: `0 calc(${theme('tooltip.arrow.width')} / 2) ${theme('tooltip.arrow.height')}`,
             borderBottomColor: theme('tooltip.arrow.color'),
         },
@@ -40,13 +40,13 @@ module.exports = plugin(function({ addComponents, theme }) {
         },
         
         '.bs-tooltip-left .tooltip-arrow': {
-            right: 0,
+            right: '1px',
             width: theme('tooltip.arrow.height'),
             height: theme('tooltip.arrow.width')
         },
         
         '.bs-tooltip-left .tooltip-arrow::before': {
-            right: 0,
+            right: '1px',
             borderWidth: `calc(${theme('tooltip.arrow.width')} / 2) 0 calc(${theme('tooltip.arrow.width')} / 2) ${theme('tooltip.arrow.height')}`,
             borderLeftColor: theme('tooltip.arrow.color')
         }
@@ -58,13 +58,13 @@ module.exports = plugin(function({ addComponents, theme }) {
         },
         
         '.bs-tooltip-right .tooltip-arrow': {
-            left: 0,
+            left: '1px',
             width: theme('tooltip.arrow.height'),
             height: theme('tooltip.arrow.width'),
         },
         
         '.bs-tooltip-right .tooltip-arrow::before': {
-            left: 0,
+            left: '1px',
             borderWidth: `calc(${theme('tooltip.arrow.width')} / 2) ${theme('tooltip.arrow.height')} calc(${theme('tooltip.arrow.width')} / 2) 0`,
             borderRightColor: theme('tooltip.arrow.color'),
         }

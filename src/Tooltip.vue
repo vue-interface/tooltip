@@ -1,12 +1,13 @@
 <script lang="ts">
 // @ts-ignore
+import { defineComponent } from 'vue';
 import Popper from './Popper';
 
-export default {
+export default defineComponent({
     mixins: [
         Popper
     ]
-};
+});
 </script>
 
 <template>
