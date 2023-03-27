@@ -5,6 +5,7 @@ import Tooltip from './Tooltip.vue';
 type TooltipPluginOptions = {
     delay?: number,
     prefix: string,
+    progressiveEnhancement: boolean,
     triggers: {
         open: string[],
         close: string[],
@@ -17,6 +18,7 @@ export default function (app: App, opts: Partial<TooltipPluginOptions> = {}) {
     const options: TooltipPluginOptions = Object.assign({
         delay: undefined,
         prefix: 'data-tooltip',
+        progressiveEnhancement: true,
         triggers: {
             open: ['mouseover:350'],
             close: ['mouseout:100'],
@@ -123,6 +125,10 @@ export default function (app: App, opts: Partial<TooltipPluginOptions> = {}) {
   
     app.mixin({
         mounted() {
+            if(!options.progressiveEnhancement) {
+                return;
+            }
+            
             let el = this.$el;
 
             if(this.$el instanceof Text) {
