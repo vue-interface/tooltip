@@ -24,6 +24,33 @@ const I = $({
     left: Boolean,
     right: Boolean
   },
+  // props: {
+  //     // offset: {
+  //     //     type: Array,
+  //     //     default: undefined
+  //     // },
+  //     // popper: {
+  //     //     type: Object,
+  //     //     default: undefined
+  //     // },
+  //     // show: Boolean,
+  //     // target: {
+  //     //     type: HTMLElement,
+  //     //     required: true
+  //     // },
+  //     // title: {
+  //     //     type: String,
+  //     //     default: undefined
+  //     // },
+  //     // placement: {
+  //     //     type: String,
+  //     //     default: undefined
+  //     // },
+  //     // top: Boolean,
+  //     // bottom: Boolean,
+  //     // left: Boolean,
+  //     // right: Boolean,
+  // },
   data() {
     return {
       currentShow: !1,

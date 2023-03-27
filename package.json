@@ -18,8 +18,8 @@
       "require": "./dist/tooltip.umd.js",
       "types": "./index.ts"
     },
-    "./tailwindcss": "./tailwindcss/index.js",
-    "./tailwindcss/safelist": "./tailwindcss/safelist.js"
+    "./tailwindcss": "./tailwindcss/index.cjs",
+    "./tailwindcss/safelist": "./tailwindcss/safelist.cjs"
   },
   "scripts": {
     "dev": "vite",
