@@ -4,21 +4,28 @@ import { defineComponent } from 'vue';
 export default defineComponent({
 
     props: {
-        offset: Array,
+        offset: {
+            type: Array,
+            default: undefined
+        },
 
-        popper: Object,
-
-        show: Boolean,
+        popper: {
+            type: Object,
+            default: undefined
+        },
 
         target: {
-            type: HTMLElement,
+            type: Element,
             required: true
         },
 
-        title: String,
-
-        placement: String,
-
+        title: {
+            type: String,
+            default: undefined
+        },
+        
+        show: Boolean,
+        
         top: Boolean,
 
         bottom: Boolean,
@@ -27,6 +34,43 @@ export default defineComponent({
 
         right: Boolean,
     },
+
+    // props: {
+    //     // offset: {
+    //     //     type: Array,
+    //     //     default: undefined
+    //     // },
+
+    //     // popper: {
+    //     //     type: Object,
+    //     //     default: undefined
+    //     // },
+
+    //     // show: Boolean,
+
+    //     // target: {
+    //     //     type: HTMLElement,
+    //     //     required: true
+    //     // },
+
+    //     // title: {
+    //     //     type: String,
+    //     //     default: undefined
+    //     // },
+
+    //     // placement: {
+    //     //     type: String,
+    //     //     default: undefined
+    //     // },
+
+    //     // top: Boolean,
+
+    //     // bottom: Boolean,
+
+    //     // left: Boolean,
+
+    //     // right: Boolean,
+    // },
     
     data() {
         return {

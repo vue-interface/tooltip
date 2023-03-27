@@ -7,9 +7,9 @@ module.exports = {
         extend: {},
     },
     plugins: [
-        require('./tailwindcss')
+        require('./tailwindcss/index.cjs')
     ],
     safelist: [
-        ...require('./tailwindcss/safelist')()
+        ...require('./tailwindcss/safelist.cjs')()
     ]
 };

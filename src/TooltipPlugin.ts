@@ -114,8 +114,11 @@ export default function (app: App, opts: Partial<TooltipPluginOptions> = {}) {
             target.addEventListener(event, () => fn(Number(delayString || 0)));
         }
 
-        (target.getAttribute(`${prefix}-trigger-open`)?.split(',') || options.triggers.open).map(trigger => addEventListener(trigger, open));
-        (target.getAttribute(`${prefix}-trigger-close`)?.split(',') || options.triggers.close).map(trigger => addEventListener(trigger, close));
+        (target.getAttribute(`${prefix}-trigger-open`)?.split(',') || options.triggers.open)
+            .map(trigger => addEventListener(trigger, open));
+            
+        (target.getAttribute(`${prefix}-trigger-close`)?.split(',') || options.triggers.close)
+            .map(trigger => addEventListener(trigger, close));
     }
   
     app.mixin({

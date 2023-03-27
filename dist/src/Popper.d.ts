@@ -1,16 +1,24 @@
 declare const _default: import("vue").DefineComponent<{
-    offset: ArrayConstructor;
-    popper: ObjectConstructor;
-    show: BooleanConstructor;
+    offset: {
+        type: ArrayConstructor;
+        default: undefined;
+    };
+    popper: {
+        type: ObjectConstructor;
+        default: undefined;
+    };
     target: {
         type: {
-            new (): HTMLElement;
-            prototype: HTMLElement;
+            new (): Element;
+            prototype: Element;
         };
         required: true;
     };
-    title: StringConstructor;
-    placement: StringConstructor;
+    title: {
+        type: StringConstructor;
+        default: undefined;
+    };
+    show: BooleanConstructor;
     top: BooleanConstructor;
     bottom: BooleanConstructor;
     left: BooleanConstructor;
@@ -19,32 +27,43 @@ declare const _default: import("vue").DefineComponent<{
     currentShow: boolean;
     popperInstance: null;
 }, {
-    computedPlacement(): string;
+    computedPlacement(): any;
     tooltipClasses(): {
-        [x: string]: boolean;
-        show: boolean;
+        [x: string]: any;
+        show: any;
     };
 }, {
     open(): void;
     close(): void;
 }, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, {}, string, import("vue").VNodeProps & import("vue").AllowedComponentProps & import("vue").ComponentCustomProps, Readonly<import("vue").ExtractPropTypes<{
-    offset: ArrayConstructor;
-    popper: ObjectConstructor;
-    show: BooleanConstructor;
+    offset: {
+        type: ArrayConstructor;
+        default: undefined;
+    };
+    popper: {
+        type: ObjectConstructor;
+        default: undefined;
+    };
     target: {
         type: {
-            new (): HTMLElement;
-            prototype: HTMLElement;
+            new (): Element;
+            prototype: Element;
         };
         required: true;
     };
-    title: StringConstructor;
-    placement: StringConstructor;
+    title: {
+        type: StringConstructor;
+        default: undefined;
+    };
+    show: BooleanConstructor;
     top: BooleanConstructor;
     bottom: BooleanConstructor;
     left: BooleanConstructor;
     right: BooleanConstructor;
 }>>, {
+    offset: unknown[];
+    popper: Record<string, any>;
+    title: string;
     show: boolean;
     top: boolean;
     bottom: boolean;

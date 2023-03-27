@@ -1,5 +1,4 @@
 <script lang="ts">
-// @ts-ignore
 import { defineComponent } from 'vue';
 import Popper from './Popper';
 
