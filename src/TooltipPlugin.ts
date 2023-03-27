@@ -22,7 +22,7 @@ export default function (app: App, opts: Partial<TooltipPluginOptions> = {}) {
             close: ['mouseout:100'],
         }
     }, opts);
-
+    
     const prefix = options.prefix.replace(/[-]+$/, '');
     const prefixRegExp = new RegExp(`^${prefix}\-`);
 
@@ -62,7 +62,7 @@ export default function (app: App, opts: Partial<TooltipPluginOptions> = {}) {
 
     function init(target: Element, props = {}) {
         const properties: Record<string,any> = Object.assign({
-            title: target.getAttribute(prefix)
+            title: target.getAttribute(prefix) || target.getAttribute('title')
         }, props, getAttributes(target));
 
         // If the properties don't have a title, ignore this target.
@@ -79,7 +79,7 @@ export default function (app: App, opts: Partial<TooltipPluginOptions> = {}) {
 
         //target.setAttribute(prefix, properties.title);
         target.setAttribute(`${prefix}-id`, hash);
-        target.removeAttribute('title');
+        // target.removeAttribute('title');
 
         function open(delay = 0) {
             clearTimeout(timer);
@@ -172,14 +172,12 @@ export default function (app: App, opts: Partial<TooltipPluginOptions> = {}) {
     });
 
     app.directive('tooltip', {
-        created(target, binding) {
+        beforeMount(target, binding) {
             init(target, Object.assign({}, binding.modifiers, binding.value));
         },
         beforeUnmount(target) {
             const id = target.getAttribute(`${prefix}-id`);
             const tooltip = tooltips.get(id);
-
-            console.log('beforeUnmount');
 
             tooltip && tooltip();
         }
