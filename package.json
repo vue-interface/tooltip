@@ -10,11 +10,11 @@
   ],
   "type": "module",
   "main": "./dist/tooltip.umd.js",
-  "module": "./dist/tooltip.es.js",
+  "module": "./dist/tooltip.js",
   "browserslist": "last 2 versions, > 0.5%, ie >= 11",
   "exports": {
     ".": {
-      "import": "./dist/tooltip.es.js",
+      "import": "./dist/tooltip.js",
       "require": "./dist/tooltip.umd.js",
       "types": "./index.ts"
     },
