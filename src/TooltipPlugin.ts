@@ -81,7 +81,7 @@ export default function (app: App, opts: Partial<TooltipPluginOptions> = {}) {
 
         //target.setAttribute(prefix, properties.title);
         target.setAttribute(`${prefix}-id`, hash);
-        // target.removeAttribute('title');
+        target.removeAttribute('title');
 
         function open(delay = 0) {
             clearTimeout(timer);
