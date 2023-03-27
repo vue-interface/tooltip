@@ -162,7 +162,11 @@ export default function (app: App, opts: Partial<TooltipPluginOptions> = {}) {
             const observer = new MutationObserver((changes) => {
                 for(const { removedNodes } of changes) {
                     for(const node of removedNodes) {
-                        for(const el of (node as Element).querySelectorAll(`[${prefix}-id]`)) {
+                        if(!(node instanceof Element)) {
+                            continue;
+                        }
+                        
+                        for(const el of node.querySelectorAll(`[${prefix}-id]`)) {
                             const tooltip = tooltips.get(
                                 el.getAttribute(`${prefix}-id`) as string
                             );
