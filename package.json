@@ -8,6 +8,7 @@
     "src",
     "tailwindcss"
   ],
+  "type": "module",
   "main": "./dist/tooltip.umd.js",
   "module": "./dist/tooltip.es.js",
   "browserslist": "last 2 versions, > 0.5%, ie >= 11",
