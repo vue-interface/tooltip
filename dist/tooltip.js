@@ -1,5 +1,5 @@
-import { defineComponent as $, openBlock as A, createElementBlock as S, normalizeClass as N, createElementVNode as _, renderSlot as O, createTextVNode as L, toDisplayString as j, h as B, render as C } from "vue";
-import { createPopper as P } from "@popperjs/core";
+import { defineComponent as $, openBlock as S, createElementBlock as N, normalizeClass as O, createElementVNode as _, renderSlot as L, createTextVNode as j, toDisplayString as B, h as C, render as P } from "vue";
+import { createPopper as F } from "@popperjs/core";
 const I = $({
   props: {
     offset: {
@@ -8,6 +8,10 @@ const I = $({
     },
     popper: {
       type: Object,
+      default: void 0
+    },
+    placement: {
+      type: String,
       default: void 0
     },
     target: {
@@ -42,7 +46,7 @@ const I = $({
     }
   },
   mounted() {
-    this.popperInstance = P(this.target, this.$el, Object.assign({
+    this.popperInstance = F(this.target, this.$el, Object.assign({
       placement: this.computedPlacement,
       modifiers: [
         {
@@ -78,116 +82,130 @@ const I = $({
     I
   ]
 });
-const k = (s, d) => {
-  const p = s.__vccOpts || s;
-  for (const [a, n] of d)
-    p[a] = n;
-  return p;
-}, F = {
+const k = (l, d) => {
+  const c = l.__vccOpts || l;
+  for (const [u, i] of d)
+    c[u] = i;
+  return c;
+}, M = {
   ref: "arrow",
   class: "tooltip-arrow"
-}, M = {
+}, q = {
   ref: "inner",
   class: "tooltip-inner"
 };
-function U(s, d, p, a, n, m) {
-  return A(), S("div", {
-    class: N(["tooltip", s.tooltipClasses]),
+function H(l, d, c, u, i, m) {
+  return S(), N("div", {
+    class: O(["tooltip", l.tooltipClasses]),
     role: "tooltip"
   }, [
-    _("div", F, null, 512),
-    _("div", M, [
-      O(s.$slots, "default", {}, () => [
-        L(j(s.title), 1)
+    _("div", M, null, 512),
+    _("div", q, [
+      L(l.$slots, "default", {}, () => [
+        j(B(l.title), 1)
       ])
     ], 512)
   ], 2);
 }
-const q = /* @__PURE__ */ k(R, [["render", U]]);
-function W(s, d = {}) {
-  const p = /* @__PURE__ */ new Map(), a = Object.assign({
+const U = /* @__PURE__ */ k(R, [["render", H]]);
+function z(l, d = {}) {
+  const c = /* @__PURE__ */ new Map(), u = Object.assign({
     delay: void 0,
     prefix: "data-tooltip",
+    progressiveEnhancement: !0,
     triggers: {
       open: ["mouseover:350"],
       close: ["mouseout:100"]
     }
-  }, d), n = a.prefix.replace(/[-]+$/, ""), m = new RegExp(`^${n}-`);
-  function w(e) {
+  }, d), i = u.prefix.replace(/[-]+$/, ""), m = new RegExp(`^${i}-`);
+  function E(e) {
     return Array.from(e.attributes).map((t) => [t.name, t.value]).filter(([t]) => t === "title" || t.match(m)).map(([t, o]) => [t.replace(new RegExp(m), ""), o]).reduce((t, o) => Object.assign(t, { [o[0]]: o[1] }), {});
   }
-  function T(e, t = {}, o) {
-    const i = document.createElement("template"), r = B(q, Object.assign({
+  function w(e, t = {}, o) {
+    const s = document.createElement("template"), n = C(U, Object.assign({
       target: e,
       show: !0
     }, t));
-    C(r, i);
-    const [l] = [...i.children];
-    return document.body.append(l), () => {
-      var u;
-      p.delete(o), (u = r.component) == null || u.ctx.close(), setTimeout(() => l.remove(), 150);
+    P(n, s);
+    const [r] = [...s.children];
+    return document.body.append(r), () => {
+      var a;
+      c.delete(o), (a = n.component) == null || a.ctx.close(), setTimeout(() => r.remove(), 150);
     };
+  }
+  function T(e) {
+    const t = e.getAttribute(`${i}-id`);
+    if (t) {
+      const o = c.get(t);
+      o == null || o();
+    }
   }
   function h(e, t = {}) {
     var b, v;
     const o = Object.assign({
-      title: e.getAttribute(n)
-    }, t, w(e));
-    if (!o.title || e.hasAttribute(`${n}-id`))
+      title: e.getAttribute(i) || e.getAttribute("title")
+    }, t, E(e));
+    if (!o.title || e.hasAttribute(`${i}-id`))
       return;
-    const i = Math.random().toString(36).slice(2, 7);
-    let r, l;
-    e.setAttribute(`${n}-id`, i), e.removeAttribute("title");
-    function u(c = 0) {
-      clearTimeout(l), r || (l = setTimeout(() => {
-        document.contains(e) && (r = T(e, o, i), p.set(i, r));
-      }, c));
+    const s = Math.random().toString(36).slice(2, 7);
+    let n, r;
+    e.setAttribute(`${i}-id`, s), e.removeAttribute("title");
+    function a(p = 0) {
+      clearTimeout(r), n || (r = setTimeout(() => {
+        document.contains(e) && (n = w(e, o, s), c.set(s, n));
+      }, p));
     }
-    function f(c = 0) {
-      clearTimeout(l), r && (l = setTimeout(() => {
-        r && r(), r = null;
-      }, c));
+    function g(p = 0) {
+      clearTimeout(r), n && (r = setTimeout(() => {
+        n && n(), n = null;
+      }, p));
     }
-    function g(c, E) {
-      const [x, y] = c.split(":");
-      e.addEventListener(x, () => E(Number(y || 0)));
+    function f(p, y) {
+      const [x, A] = p.split(":");
+      e.addEventListener(x, () => y(Number(A || 0)));
     }
-    (((b = e.getAttribute(`${n}-trigger-open`)) == null ? void 0 : b.split(",")) || a.triggers.open).map((c) => g(c, u)), (((v = e.getAttribute(`${n}-trigger-close`)) == null ? void 0 : v.split(",")) || a.triggers.close).map((c) => g(c, f));
+    (((b = e.getAttribute(`${i}-trigger-open`)) == null ? void 0 : b.split(",")) || u.triggers.open).map((p) => f(p, a)), (((v = e.getAttribute(`${i}-trigger-close`)) == null ? void 0 : v.split(",")) || u.triggers.close).map((p) => f(p, g));
   }
-  s.mixin({
+  l.mixin({
     mounted() {
+      if (!u.progressiveEnhancement)
+        return;
       let e = this.$el;
       this.$el instanceof Text && (e = this.$el.parentNode), e instanceof HTMLElement && h(e);
       const t = document.createTreeWalker(
         e,
         NodeFilter.SHOW_ALL,
-        (i) => i instanceof Element ? NodeFilter.FILTER_ACCEPT : NodeFilter.FILTER_REJECT
+        (s) => s instanceof Element ? NodeFilter.FILTER_ACCEPT : NodeFilter.FILTER_REJECT
       );
       for (; t.nextNode(); )
         t.currentNode instanceof Element && h(t.currentNode);
-      new MutationObserver((i) => {
-        for (const { removedNodes: r } of i)
-          for (const l of r)
-            for (const u of l.querySelectorAll(`[${n}-id]`)) {
-              const f = p.get(
-                u.getAttribute(`${n}-id`)
-              );
-              f && f();
-            }
+      new MutationObserver((s) => {
+        let n = !1;
+        for (const { removedNodes: r } of s)
+          for (const a of r)
+            if (a instanceof Element)
+              for (const g of a.querySelectorAll(`[${i}-id]`)) {
+                const f = c.get(
+                  g.getAttribute(`${i}-id`)
+                );
+                f && (n = !0, f());
+              }
+        if (!n)
+          for (const r of c.values())
+            r();
       }).observe(e, { childList: !0 });
     }
-  }), s.directive("tooltip", {
-    created(e, t) {
+  }), l.directive("tooltip", {
+    beforeMount(e, t) {
       h(e, Object.assign({}, t.modifiers, t.value));
     },
     beforeUnmount(e) {
-      const t = e.getAttribute(`${n}-id`), o = p.get(t);
-      console.log("beforeUnmount"), o && o();
+      T(e);
     }
   });
 }
 export {
-  q as Tooltip,
-  W as TooltipPlugin
+  U as Tooltip,
+  z as TooltipPlugin
 };
 //# sourceMappingURL=tooltip.js.map

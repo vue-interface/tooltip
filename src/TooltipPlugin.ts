@@ -62,6 +62,14 @@ export default function (app: App, opts: Partial<TooltipPluginOptions> = {}) {
         };
     }
 
+    function destroyTooltip(target: Element) {
+        const id = target.getAttribute(`${prefix}-id`);
+        if(id) {
+            const tooltip = tooltips.get(id);
+            tooltip?.();
+        }
+    }
+
     function init(target: Element, props = {}) {
         const properties: Record<string,any> = Object.assign({
             title: target.getAttribute(prefix) || target.getAttribute('title')
@@ -107,7 +115,7 @@ export default function (app: App, opts: Partial<TooltipPluginOptions> = {}) {
                     tooltip && tooltip();
                     tooltip = null;
                 }, delay);
-            }       
+            }
         }
 
         function addEventListener(trigger: string, fn: Function) {
@@ -160,21 +168,37 @@ export default function (app: App, opts: Partial<TooltipPluginOptions> = {}) {
             }
 
             const observer = new MutationObserver((changes) => {
+
+                let tooltipFound = false;
                 for(const { removedNodes } of changes) {
                     for(const node of removedNodes) {
-                        for(const el of (node as Element).querySelectorAll(`[${prefix}-id]`)) {
+                        if(!(node instanceof Element)) {
+                            continue;
+                        }
+                        for(const el of node.querySelectorAll(`[${prefix}-id]`)) {
                             const tooltip = tooltips.get(
                                 el.getAttribute(`${prefix}-id`) as string
                             );
-
-                            tooltip && tooltip();
+                            if(tooltip) {
+                                tooltipFound = true;
+                                tooltip();
+                            }
                         }
                     } 
+                }
+
+                // @experimental
+                // In some cases in Inertia.js, not all tooltips are removed on certain actions.
+                // remove all tooltips if no tooltip was found.
+                if(!tooltipFound) {
+                    for(const tooltip of tooltips.values()) {
+                        tooltip();
+                    }
                 }
             });
 
             observer.observe(el, { childList: true });
-        }
+        },
     });
 
     app.directive('tooltip', {
@@ -182,10 +206,7 @@ export default function (app: App, opts: Partial<TooltipPluginOptions> = {}) {
             init(target, Object.assign({}, binding.modifiers, binding.value));
         },
         beforeUnmount(target) {
-            const id = target.getAttribute(`${prefix}-id`);
-            const tooltip = tooltips.get(id);
-
-            tooltip && tooltip();
+            destroyTooltip(target);
         }
     });
 }
