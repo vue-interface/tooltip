@@ -1,5 +1,5 @@
+import { createApp, h } from 'vue';
 import { createRouter, createWebHistory } from 'vue-router';
-import { createApp, h } from 'vue/dist/vue.esm-bundler.js';
 import TooltipPlugin from '../src/TooltipPlugin';
 import App from './App.vue';
 import Test from './components/Test.vue';
@@ -13,7 +13,7 @@ const router = createRouter({
     ],
 });
 
-const app = createApp(App)
+createApp(App)
     .use(router)
     .use(TooltipPlugin)
     .component('ViaPlugin', {
@@ -55,10 +55,7 @@ const app = createApp(App)
                     href: '#',
                     title: 'Right',
                     'data-tooltip-placement': 'right',
-                    class: 'p-2 rounded bg-slate-800 text-white outline-none focus:ring',
-                    onClick() {
-                        visible.value = false;
-                    }
+                    class: 'p-2 rounded bg-slate-800 text-white outline-none focus:ring'
                 }, 'Trigger Unmount')
             ]);
         }

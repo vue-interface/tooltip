@@ -28,7 +28,7 @@ export default function (app: App, opts: Partial<TooltipPluginOptions> = {}) {
     const prefix = options.prefix.replace(/[-]+$/, '');
     const prefixRegExp = new RegExp(`^${prefix}\-`);
 
-    function getAttributes(el: Element): Record<string,any> {
+    function getAttributes(el: Element): Record<string,string> {
         return Array.from(el.attributes)
             .map(a => [a.name, a.value])
             .filter(([key]) => key === 'title' || key.match(prefixRegExp))
@@ -36,7 +36,7 @@ export default function (app: App, opts: Partial<TooltipPluginOptions> = {}) {
             .reduce((carry, attr) => Object.assign(carry, { [attr[0]]: attr[1] }), {});
     }
 
-    function createTooltip(target: Element, props: Record<string,any> = {}, hash: string): Function {
+    function createTooltip(target: Element, props: Record<string,string> = {}, hash: string): Function {
         const container = document.createElement('template');
         
         const vnode = h(Tooltip, Object.assign({
@@ -53,8 +53,7 @@ export default function (app: App, opts: Partial<TooltipPluginOptions> = {}) {
         return () => {
             tooltips.delete(hash);
 
-            // @ts-ignore
-            vnode.component?.ctx.close();
+            // vnode.component?.close();
     
             // @todo: Make the animation rate (150) dynamic. Should get value 
             // from the CSS transition duration.
@@ -71,7 +70,7 @@ export default function (app: App, opts: Partial<TooltipPluginOptions> = {}) {
     }
 
     function init(target: Element, props = {}) {
-        const properties: Record<string,any> = Object.assign({
+        const properties: Record<string,string> = Object.assign({
             title: target.getAttribute(prefix) || target.getAttribute('title')
         }, props, getAttributes(target));
 

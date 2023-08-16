@@ -1,115 +1,80 @@
-import { defineComponent as $, openBlock as S, createElementBlock as N, normalizeClass as O, createElementVNode as _, renderSlot as L, createTextVNode as j, toDisplayString as B, h as C, render as P } from "vue";
-import { createPopper as F } from "@popperjs/core";
-const I = $({
-  props: {
-    offset: {
-      type: Array,
-      default: void 0
-    },
-    popper: {
-      type: Object,
-      default: void 0
-    },
-    placement: {
-      type: String,
-      default: void 0
-    },
-    target: {
-      type: Element,
-      required: !0
-    },
-    title: {
-      type: String,
-      default: void 0
-    },
-    show: Boolean,
-    top: Boolean,
-    bottom: Boolean,
-    left: Boolean,
-    right: Boolean
-  },
-  data() {
-    return {
-      currentShow: !1,
-      popperInstance: null
-    };
-  },
-  computed: {
-    computedPlacement() {
-      return this.placement ? this.placement : this.bottom ? "bottom" : this.left ? "left" : this.right ? "right" : "top";
-    },
-    tooltipClasses() {
-      return {
-        show: this.currentShow,
-        [`bs-tooltip-${this.computedPlacement}`]: !0
-      };
-    }
-  },
-  mounted() {
-    this.popperInstance = F(this.target, this.$el, Object.assign({
-      placement: this.computedPlacement,
-      modifiers: [
-        {
-          name: "offset",
-          options: {
-            offset: [0, 6]
-          }
-        },
-        {
-          name: "arrow",
-          options: {
-            element: this.$refs.arrow
-          }
-        }
-      ]
-    }, this.popper)), this.$nextTick(() => {
-      this.currentShow = this.show;
-    });
-  },
-  beforeUnmount() {
-    this.popperInstance && this.popperInstance.destroy();
-  },
-  methods: {
-    open() {
-      this.currentShow = !0;
-    },
-    close() {
-      this.currentShow = !1;
-    }
-  }
-}), R = $({
-  mixins: [
-    I
-  ]
-});
-const k = (l, d) => {
-  const c = l.__vccOpts || l;
-  for (const [u, i] of d)
-    c[u] = i;
-  return c;
-}, M = {
-  ref: "arrow",
-  class: "tooltip-arrow"
-}, q = {
+import { defineComponent as B, ref as b, computed as x, onMounted as L, nextTick as O, onBeforeUnmount as S, openBlock as j, createElementBlock as k, normalizeClass as C, createElementVNode as w, renderSlot as F, createTextVNode as M, toDisplayString as R, h as P, render as I } from "vue";
+import { createPopper as H } from "@popperjs/core";
+const U = {
   ref: "inner",
   class: "tooltip-inner"
-};
-function H(l, d, c, u, i, m) {
-  return S(), N("div", {
-    class: O(["tooltip", l.tooltipClasses]),
-    role: "tooltip"
-  }, [
-    _("div", M, null, 512),
-    _("div", q, [
-      L(l.$slots, "default", {}, () => [
-        j(B(l.title), 1)
-      ])
-    ], 512)
-  ], 2);
-}
-const U = /* @__PURE__ */ k(R, [["render", H]]);
-function z(l, d = {}) {
-  const c = /* @__PURE__ */ new Map(), u = Object.assign({
+}, V = /* @__PURE__ */ B({
+  __name: "Tooltip",
+  props: {
+    offset: {},
+    popper: {},
+    placement: {},
+    target: {},
+    title: {},
+    show: { type: Boolean },
+    top: { type: Boolean },
+    bottom: { type: Boolean },
+    left: { type: Boolean },
+    right: { type: Boolean }
+  },
+  setup(v, { expose: h }) {
+    const n = v, u = b(), i = b(), a = b(!1), f = b(), g = x(() => n.placement ? n.placement : n.bottom ? "bottom" : n.left ? "left" : n.right ? "right" : "top"), T = x(() => ({
+      show: a,
+      [`bs-tooltip-${g.value}`]: !0
+    }));
+    function m() {
+      a.value = !0;
+    }
+    function e() {
+      a.value = !1;
+    }
+    return h({
+      open: m,
+      close: e
+    }), L(() => {
+      var t, o;
+      u.value && (f.value = H(n.target, u.value, Object.assign({
+        placement: g.value,
+        modifiers: [
+          {
+            name: "offset",
+            options: {
+              offset: [((t = n.offset) == null ? void 0 : t.x) ?? 0, ((o = n.offset) == null ? void 0 : o.y) ?? 6]
+            }
+          },
+          {
+            name: "arrow",
+            options: {
+              element: i.value
+            }
+          }
+        ]
+      }, n.popper)), O(() => {
+        a.value = n.show;
+      }));
+    }), S(() => {
+      f.value && f.value.destroy();
+    }), (t, o) => (j(), k("div", {
+      ref_key: "el",
+      ref: u,
+      class: C(["tooltip", T.value]),
+      role: "tooltip"
+    }, [
+      w("div", {
+        ref_key: "arrow",
+        ref: i,
+        class: "tooltip-arrow"
+      }, null, 512),
+      w("div", U, [
+        F(t.$slots, "default", {}, () => [
+          M(R(t.title), 1)
+        ])
+      ], 512)
+    ], 2));
+  }
+});
+function z(v, h = {}) {
+  const n = /* @__PURE__ */ new Map(), u = Object.assign({
     delay: void 0,
     prefix: "data-tooltip",
     progressiveEnhancement: !0,
@@ -117,87 +82,87 @@ function z(l, d = {}) {
       open: ["mouseover:350"],
       close: ["mouseout:100"]
     }
-  }, d), i = u.prefix.replace(/[-]+$/, ""), m = new RegExp(`^${i}-`);
-  function E(e) {
-    return Array.from(e.attributes).map((t) => [t.name, t.value]).filter(([t]) => t === "title" || t.match(m)).map(([t, o]) => [t.replace(new RegExp(m), ""), o]).reduce((t, o) => Object.assign(t, { [o[0]]: o[1] }), {});
+  }, h), i = u.prefix.replace(/[-]+$/, ""), a = new RegExp(`^${i}-`);
+  function f(e) {
+    return Array.from(e.attributes).map((t) => [t.name, t.value]).filter(([t]) => t === "title" || t.match(a)).map(([t, o]) => [t.replace(new RegExp(a), ""), o]).reduce((t, o) => Object.assign(t, { [o[0]]: o[1] }), {});
   }
-  function w(e, t = {}, o) {
-    const s = document.createElement("template"), n = C(U, Object.assign({
+  function g(e, t = {}, o) {
+    const l = document.createElement("template"), r = P(V, Object.assign({
       target: e,
       show: !0
     }, t));
-    P(n, s);
-    const [r] = [...s.children];
-    return document.body.append(r), () => {
-      var a;
-      c.delete(o), (a = n.component) == null || a.ctx.close(), setTimeout(() => r.remove(), 150);
+    I(r, l);
+    const [s] = [...l.children];
+    return document.body.append(s), () => {
+      var p;
+      n.delete(o), (p = r.component) == null || p.ctx.close(), setTimeout(() => s.remove(), 150);
     };
   }
   function T(e) {
     const t = e.getAttribute(`${i}-id`);
     if (t) {
-      const o = c.get(t);
+      const o = n.get(t);
       o == null || o();
     }
   }
-  function h(e, t = {}) {
-    var b, v;
+  function m(e, t = {}) {
+    var _, y;
     const o = Object.assign({
       title: e.getAttribute(i) || e.getAttribute("title")
-    }, t, E(e));
+    }, t, f(e));
     if (!o.title || e.hasAttribute(`${i}-id`))
       return;
-    const s = Math.random().toString(36).slice(2, 7);
-    let n, r;
-    e.setAttribute(`${i}-id`, s), e.removeAttribute("title");
-    function a(p = 0) {
-      clearTimeout(r), n || (r = setTimeout(() => {
-        document.contains(e) && (n = w(e, o, s), c.set(s, n));
-      }, p));
+    const l = Math.random().toString(36).slice(2, 7);
+    let r, s;
+    e.setAttribute(`${i}-id`, l), e.removeAttribute("title");
+    function p(c = 0) {
+      clearTimeout(s), r || (s = setTimeout(() => {
+        document.contains(e) && (r = g(e, o, l), n.set(l, r));
+      }, c));
     }
-    function g(p = 0) {
-      clearTimeout(r), n && (r = setTimeout(() => {
-        n && n(), n = null;
-      }, p));
+    function E(c = 0) {
+      clearTimeout(s), r && (s = setTimeout(() => {
+        r && r(), r = null;
+      }, c));
     }
-    function f(p, y) {
-      const [x, A] = p.split(":");
-      e.addEventListener(x, () => y(Number(A || 0)));
+    function d(c, A) {
+      const [$, N] = c.split(":");
+      e.addEventListener($, () => A(Number(N || 0)));
     }
-    (((b = e.getAttribute(`${i}-trigger-open`)) == null ? void 0 : b.split(",")) || u.triggers.open).map((p) => f(p, a)), (((v = e.getAttribute(`${i}-trigger-close`)) == null ? void 0 : v.split(",")) || u.triggers.close).map((p) => f(p, g));
+    (((_ = e.getAttribute(`${i}-trigger-open`)) == null ? void 0 : _.split(",")) || u.triggers.open).map((c) => d(c, p)), (((y = e.getAttribute(`${i}-trigger-close`)) == null ? void 0 : y.split(",")) || u.triggers.close).map((c) => d(c, E));
   }
-  l.mixin({
+  v.mixin({
     mounted() {
       if (!u.progressiveEnhancement)
         return;
       let e = this.$el;
-      this.$el instanceof Text && (e = this.$el.parentNode), e instanceof HTMLElement && h(e);
+      this.$el instanceof Text && (e = this.$el.parentNode), e instanceof HTMLElement && m(e);
       const t = document.createTreeWalker(
         e,
         NodeFilter.SHOW_ALL,
-        (s) => s instanceof Element ? NodeFilter.FILTER_ACCEPT : NodeFilter.FILTER_REJECT
+        (l) => l instanceof Element ? NodeFilter.FILTER_ACCEPT : NodeFilter.FILTER_REJECT
       );
       for (; t.nextNode(); )
-        t.currentNode instanceof Element && h(t.currentNode);
-      new MutationObserver((s) => {
-        let n = !1;
-        for (const { removedNodes: r } of s)
-          for (const a of r)
-            if (a instanceof Element)
-              for (const g of a.querySelectorAll(`[${i}-id]`)) {
-                const f = c.get(
-                  g.getAttribute(`${i}-id`)
+        t.currentNode instanceof Element && m(t.currentNode);
+      new MutationObserver((l) => {
+        let r = !1;
+        for (const { removedNodes: s } of l)
+          for (const p of s)
+            if (p instanceof Element)
+              for (const E of p.querySelectorAll(`[${i}-id]`)) {
+                const d = n.get(
+                  E.getAttribute(`${i}-id`)
                 );
-                f && (n = !0, f());
+                d && (r = !0, d());
               }
-        if (!n)
-          for (const r of c.values())
-            r();
+        if (!r)
+          for (const s of n.values())
+            s();
       }).observe(e, { childList: !0 });
     }
-  }), l.directive("tooltip", {
+  }), v.directive("tooltip", {
     beforeMount(e, t) {
-      h(e, Object.assign({}, t.modifiers, t.value));
+      m(e, Object.assign({}, t.modifiers, t.value));
     },
     beforeUnmount(e) {
       T(e);
@@ -205,7 +170,7 @@ function z(l, d = {}) {
   });
 }
 export {
-  U as Tooltip,
+  V as Tooltip,
   z as TooltipPlugin
 };
 //# sourceMappingURL=tooltip.js.map
