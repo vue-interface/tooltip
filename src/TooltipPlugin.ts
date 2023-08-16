@@ -57,7 +57,7 @@ export default function (app: App, opts: Partial<TooltipPluginOptions> = {}) {
     
             // @todo: Make the animation rate (150) dynamic. Should get value 
             // from the CSS transition duration.
-            setTimeout(() => el.remove(), 150);
+            window.setTimeout(() => el.remove(), 150);
         };
     }
 
@@ -94,7 +94,7 @@ export default function (app: App, opts: Partial<TooltipPluginOptions> = {}) {
             clearTimeout(timer);
 
             if(!tooltip) {
-                timer = setTimeout(() => {
+                timer = window.setTimeout(() => {
                     // Do a check before creating the tooltip to ensure the dom
                     // element still exists. Its possible for the element to
                     // be removed after the timeout delay runs.
