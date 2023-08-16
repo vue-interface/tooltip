@@ -110,7 +110,7 @@ export default function (app: App, opts: Partial<TooltipPluginOptions> = {}) {
             clearTimeout(timer);
 
             if(tooltip) {
-                timer = setTimeout(() => {
+                timer = window.setTimeout(() => {
                     tooltip && tooltip();
                     tooltip = null;
                 }, delay);
