@@ -1,3 +1,10 @@
+# [1.0.0-beta.16](https://github.com/vue-interface/tooltip/compare/v1.0.0-beta.15...v1.0.0-beta.16) (2023-08-16)
+
+
+### Bug Fixes
+
+* missed one instance ([f5b9e61](https://github.com/vue-interface/tooltip/commit/f5b9e618910dd0592e61565555ca82ea3889c122))
+
 # [1.0.0-beta.15](https://github.com/vue-interface/tooltip/compare/v1.0.0-beta.14...v1.0.0-beta.15) (2023-08-16)
 
 
