@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { Instance, Offsets, OptionsGeneric, createPopper } from '@popperjs/core';
+import { createPopper, type Instance, type Offsets, type OptionsGeneric } from '@popperjs/core';
 import { computed, nextTick, onBeforeUnmount, onMounted, ref } from 'vue';
 
 const props = defineProps<{
