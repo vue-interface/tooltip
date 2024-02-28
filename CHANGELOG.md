@@ -1,3 +1,10 @@
+# [1.0.0-beta.17](https://github.com/vue-interface/tooltip/compare/v1.0.0-beta.16...v1.0.0-beta.17) (2024-02-28)
+
+
+### Bug Fixes
+
+* updated ts definitions ([771453f](https://github.com/vue-interface/tooltip/commit/771453fbad6626ff1882eb06a908f1068084dc34))
+
 # [1.0.0-beta.16](https://github.com/vue-interface/tooltip/compare/v1.0.0-beta.15...v1.0.0-beta.16) (2023-08-16)
 
 
