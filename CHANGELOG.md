@@ -1,3 +1,10 @@
+# [1.0.0-beta.18](https://github.com/vue-interface/tooltip/compare/v1.0.0-beta.17...v1.0.0-beta.18) (2024-02-28)
+
+
+### Bug Fixes
+
+* type imports ([5414fc5](https://github.com/vue-interface/tooltip/commit/5414fc51da4bbbdb13ce552660d6a636eaf27422))
+
 # [1.0.0-beta.17](https://github.com/vue-interface/tooltip/compare/v1.0.0-beta.16...v1.0.0-beta.17) (2024-02-28)
 
 
